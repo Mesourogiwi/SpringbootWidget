@@ -98,12 +98,20 @@ public class IndexController {
     @PostMapping(value = "/", produces = "application/json")
     public ResponseEntity<Usuario> createUser(@RequestBody Usuario usuario) {
 
+        for (int pos = 0; pos < usuario.getTelefones().size(); pos++) {
+            usuario.getTelefones().get(pos).setUsuario(usuario);
+        }
+
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
         return new ResponseEntity(usuarioSalvo, HttpStatus.OK);
     }
 
     @PutMapping(value = "/", produces = "application/json")
     public ResponseEntity<Usuario> updateUser(@RequestBody Usuario usuario) {
+
+        for (int pos = 0; pos < usuario.getTelefones().size(); pos++) {
+            usuario.getTelefones().get(pos).setUsuario(usuario);
+        }
 
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
         return new ResponseEntity(usuarioSalvo, HttpStatus.OK);
